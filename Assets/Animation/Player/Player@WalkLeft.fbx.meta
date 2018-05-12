@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 1a98edf13fda7084a8de42fa8f196678
-timeCreated: 1526116654
+guid: 77964de223b2ecc4fba1cdbbbd924643
+timeCreated: 1526135823
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -160,7 +160,7 @@ ModelImporter:
     4300006: Hair
     4300008: Eyes
     4300010: Eyes_Clear
-    7400000: Idle_03
+    7400000: WalkLeft
     7400002: mixamo.com
     9500000: //RootNode
     13700000: Body
@@ -197,7 +197,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle_03
+      name: WalkLeft
       takeName: Take 001
       firstFrame: 1
       lastFrame: 150
@@ -228,7 +228,7 @@ ModelImporter:
       name: mixamo.com
       takeName: mixamo.com
       firstFrame: 0
-      lastFrame: 226
+      lastFrame: 17
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

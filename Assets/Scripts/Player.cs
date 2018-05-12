@@ -11,9 +11,14 @@ public class Player : MonoBehaviour
 	private Vector3 moveDirection; 
 	public float gravityScale;
 
+	private Animator anim;
+
+	public bool doubleJump;
+
 	void Start () 
 	{
 		controller = GetComponent<CharacterController>();
+		anim = GetComponent<Animator> ();
 	}
 	
 	void Update () 
@@ -28,6 +33,7 @@ public class Player : MonoBehaviour
 		if (controller.isGrounded) 
 		{
 			moveDirection.y = 0f;
+			doubleJump = false;
 
 			if (Input.GetButtonDown ("Jump")) 
 			{
@@ -35,8 +41,24 @@ public class Player : MonoBehaviour
 			}
 		}
 
+		if (!controller.isGrounded) 
+		{
+			doubleJump = true;
+			if (doubleJump)
+			{
+				controller.velocity (Vector3.up * jumpForce);
+				anim.SetBool ("doubleJump");
+			}
+		}
+
+		anim.SetBool ("isGrounded", controller.isGrounded);
+
+
 		//add jump force
 		moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale);
 		controller.Move (moveDirection * Time.deltaTime);
+
+		anim.SetFloat ("walk", (Mathf.Abs (Input.GetAxis ("Vertical"))));
+		anim.SetFloat ("walksideways", (Mathf.Abs (Input.GetAxis ("Horizontal"))));
 	}
 }

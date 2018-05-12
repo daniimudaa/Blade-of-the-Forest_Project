@@ -14,6 +14,7 @@ public class CameraController : MonoBehaviour
 
 	public Transform pivot;
 
+
 	void Start () 
 	{
 		if (!useOffsetValues) 
@@ -28,7 +29,7 @@ public class CameraController : MonoBehaviour
 		Cursor.lockState = CursorLockMode.Locked;
 	}
 	
-	void Update () 
+	void LateUpdate () 
 	{
 		//Get the X position of the mouse & rotate target
 		float horizontal = Input.GetAxis ("Mouse X") * rotateSpeed;
@@ -37,6 +38,17 @@ public class CameraController : MonoBehaviour
 		//get the Y position of Mouse & rotate the pivot
 		float vertical = Input.GetAxis("Mouse Y") * rotateSpeed;
 		pivot.Rotate (-vertical, 0, 0);
+
+		//limit up & down camera rotation
+		if (pivot.rotation.eulerAngles.x > 80f && pivot.rotation.eulerAngles.x < 180) 
+		{
+			pivot.rotation = Quaternion.Euler (80f, 0, 0);
+		}
+
+		if (pivot.rotation.eulerAngles.x > 180 && pivot.rotation.eulerAngles.x < 315) 
+		{
+			pivot.rotation = Quaternion.Euler (315f, 0, 0);
+		}
 
 		//move the camera based on current target rotation & offset
 		float desiredYAngle = target.eulerAngles.y;
