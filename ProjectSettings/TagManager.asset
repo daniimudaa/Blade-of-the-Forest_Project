@@ -9,6 +9,7 @@ TagManager:
   - Stamina
   - Magic
   - Boss
+  - Sword
   layers:
   - Default
   - TransparentFX
