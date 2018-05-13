@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class MagicCrystal : MonoBehaviour 
 {
+	public GameObject player;
 
 	void Start () 
 	{
-		
-	}
-	
-	void Update () 
-	{
-		
+		player = GameObject.FindGameObjectWithTag ("Player");
 	}
 
 	//if player's sword hits the crystal
@@ -20,6 +16,7 @@ public class MagicCrystal : MonoBehaviour
 	{
 		if (col.gameObject.tag == "Sword") 
 		{
+			player.GetComponent<Player> ().AddingMagic ();
 			//play crystal break sound
 			//play crystal break particles
 			print("Absorbed Magic Crystal");

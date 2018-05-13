@@ -47,6 +47,8 @@ public class Player : MonoBehaviour
 		MaxHealth = 100;
 		MaxStamina = 100;
 		MaxMagic = 100;
+		CurrentStamina = MaxStamina;
+		StaminaBar.value = CalculateStamina ();
 		CurrentHealth = MaxHealth;
 		attacking = false;
 		controller = GetComponent<CharacterController>();
@@ -141,25 +143,10 @@ public class Player : MonoBehaviour
 			} 
 		}
 
-
 		//here for testing what would be enemy and self variable uses
 		if (Input.GetKeyDown (KeyCode.X)) 
 		{
 			DamageHealth (10);
-		}
-
-		//if collect crystals then they would add
-		if (Input.GetKeyDown (KeyCode.C)) 
-		{
-			AddHealth (10);
-		}
-		if (Input.GetKeyDown (KeyCode.B)) 
-		{
-			AddStamina (20);
-		}
-		if (Input.GetKeyDown (KeyCode.M)) 
-		{
-			AddMagic (25);
 		}
 
 	}
@@ -256,8 +243,22 @@ public class Player : MonoBehaviour
 		anim.SetBool ("SwordUlt", false);
 		swordUlt = false;
 		yield return null;
-
 	}
+
+//	if collect crystals then add
+	public void AddingHealth() 
+	{
+		AddHealth (10);
+	}
+	public void AddingStamina() 
+	{
+		AddStamina (40);
+	}
+	public void AddingMagic()
+	{
+		AddMagic (25);
+	}
+
 
 	float CalculateHealth()
 	{

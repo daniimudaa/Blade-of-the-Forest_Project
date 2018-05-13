@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class HealthCrystal : MonoBehaviour 
 {
+	public GameObject player;
 
 	void Start () 
 	{
-		
-	}
-	
-	void Update () 
-	{
-		
+		player = GameObject.FindGameObjectWithTag ("Player");
 	}
 
 	//if player's sword hits the crystal
@@ -20,6 +16,8 @@ public class HealthCrystal : MonoBehaviour
 	{
 		if (col.gameObject.tag == "Sword") 
 		{
+			player.GetComponent<Player> ().AddingHealth ();
+
 			//play crystal break sound
 			//play crystal break particles
 			print("Absorbed Health Crystal");
