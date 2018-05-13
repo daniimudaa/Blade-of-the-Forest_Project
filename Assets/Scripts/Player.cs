@@ -23,6 +23,15 @@ public class Player : MonoBehaviour
 	
 	void Update () 
 	{
+		if (Input.GetMouseButtonDown (0)) 
+		{
+			anim.SetBool ("Attack", true);
+		} 
+		else 
+		{
+			anim.SetBool ("Attack", false);
+		}
+
 		//character movement
 		float yStore = moveDirection.y;
 		moveDirection = (transform.forward * Input.GetAxis("Vertical")) + (transform.right * Input.GetAxis ("Horizontal"));
@@ -46,8 +55,8 @@ public class Player : MonoBehaviour
 			doubleJump = true;
 			if (doubleJump)
 			{
-				controller.velocity (Vector3.up * jumpForce);
-				anim.SetBool ("doubleJump");
+				//controller.velocity (Vector3.up * jumpForce);
+				anim.SetBool ("doubleJump", true);
 			}
 		}
 
