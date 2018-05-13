@@ -128,27 +128,17 @@ public class Player : MonoBehaviour
 		if (CurrentStamina <= 1) {takeStamina = false;}
 		if (CurrentStamina >= 19) {takeStamina = true;}
 
-		if (CurrentMagic >= 99) { collectMagic = false;}
+		if (CurrentMagic >= 99 ) { collectMagic = false;}
 		if (CurrentMagic <= 99 && CurrentMagic >= 1) { collectMagic = true;}
 		if (CurrentMagic >= 49) { swordUlt = true;} 
 		if (CurrentMagic <= 49) { swordUlt = false;}
 
 		if (Input.GetMouseButtonDown (1)) 
 		{
-			if (CurrentMagic >= 49) 
+			if (swordUlt) 
 			{
-				attacking = true;
-				takeMagic = true;
-				TakeMagic (50);
-				print ("MAGIC PRESSED");
-			}
-			//if (swordUlt) 
-			//{
-
-				//sword ult animation
-				//sword ult sound
-				//sword ult particles
-			//}
+				StartCoroutine (SwordAnim ());
+			} 
 		}
 
 
@@ -251,6 +241,22 @@ public class Player : MonoBehaviour
 			CurrentMagic -= magicValue;
 			MagicBar.value = CalculateMagic();
 		}
+	}
+
+	IEnumerator SwordAnim()
+	{
+		attacking = true;
+		takeMagic = true;
+		TakeMagic (50);
+		//sword ult sound
+		//sword ult particles
+		print ("MAGIC PRESSED");
+		anim.SetBool ("SwordUlt", true); 
+		yield return new WaitForSeconds (1f);
+		anim.SetBool ("SwordUlt", false);
+		swordUlt = false;
+		yield return null;
+
 	}
 
 	float CalculateHealth()
