@@ -327,6 +327,9 @@ MonoBehaviour:
   jumpForce: 4
   controller: {fileID: 0}
   gravityScale: 0.02
+  doubleJump: 0
+  attacking: 0
+  sword: {fileID: 2114625340}
 --- !u!1 &100891549
 GameObject:
   m_ObjectHideFlags: 0
@@ -6097,6 +6100,17 @@ GameObject:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 73cc574e26b0fe544a43fda90d1fbd97, type: 3}
   m_PrefabInternal: {fileID: 2085702596}
+--- !u!114 &2114625342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2114625340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1efa355338c2f46b1158c77118a23f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &2114625344
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6105,7 +6119,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 2114625340}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.002256735
   m_Height: 0.037981194
   m_Direction: 2

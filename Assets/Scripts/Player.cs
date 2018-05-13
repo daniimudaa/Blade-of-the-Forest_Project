@@ -14,9 +14,13 @@ public class Player : MonoBehaviour
 	private Animator anim;
 
 	public bool doubleJump;
+	public bool attacking;
+
+	public GameObject sword;
 
 	void Start () 
 	{
+		attacking = false;
 		controller = GetComponent<CharacterController>();
 		anim = GetComponent<Animator> ();
 	}
@@ -25,12 +29,16 @@ public class Player : MonoBehaviour
 	{
 		if (Input.GetMouseButtonDown (0)) 
 		{
-			anim.SetBool ("Attack", true);
+			attacking = true;
+			StartCoroutine (Attacking ());
 		} 
-		else 
+
+		if (!attacking)
 		{
-			anim.SetBool ("Attack", false);
+			anim.SetBool ("Attack", false); 
+			NotAttacking ();
 		}
+
 
 		//character movement
 		float yStore = moveDirection.y;
@@ -69,5 +77,23 @@ public class Player : MonoBehaviour
 
 		anim.SetFloat ("walk", (Mathf.Abs (Input.GetAxis ("Vertical"))));
 		anim.SetFloat ("walksideways", (Mathf.Abs (Input.GetAxis ("Horizontal"))));
+	}
+
+	IEnumerator Attacking()
+	{
+		anim.SetBool ("Attack", true);
+		sword.GetComponent<Collider>().enabled = true;
+		print ("Sword col on");
+		yield return new WaitForSeconds (1f);
+
+		attacking = false;
+		yield return null;
+	}
+
+	void NotAttacking()
+	{
+		sword.GetComponent<Collider>().enabled = false; 
+		print ("Sword col off");
+
 	}
 }
