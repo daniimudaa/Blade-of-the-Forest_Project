@@ -20,7 +20,6 @@ public class HealthCrystal : MonoBehaviour
 
 			//play crystal break sound
 			//play crystal break particles
-			print("Absorbed Health Crystal");
 			Destroy (gameObject, 1f);
 		}
 	}

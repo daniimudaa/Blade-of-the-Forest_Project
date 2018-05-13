@@ -17,9 +17,9 @@ public class MagicCrystal : MonoBehaviour
 		if (col.gameObject.tag == "Sword") 
 		{
 			player.GetComponent<Player> ().AddingMagic ();
+
 			//play crystal break sound
 			//play crystal break particles
-			print("Absorbed Magic Crystal");
 			Destroy (gameObject, 1f);
 		}
 	}

@@ -20,7 +20,6 @@ public class StaminaCrystal : MonoBehaviour
 
 			//play crystal break sound
 			//play crystal break particles
-			print("Absorbed Stamina Crystal");
 			Destroy (gameObject, 1f);
 		}
 	}

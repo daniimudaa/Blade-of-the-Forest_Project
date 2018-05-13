@@ -58,8 +58,6 @@ public class Player : MonoBehaviour
 	
 	void Update () 
 	{
-		Debug.Log (CurrentMagic);
-
 		collectMagic = true;
 		gainStamina = true;
 
@@ -237,7 +235,6 @@ public class Player : MonoBehaviour
 		TakeMagic (50);
 		//sword ult sound
 		//sword ult particles
-		print ("MAGIC PRESSED");
 		anim.SetBool ("SwordUlt", true); 
 		yield return new WaitForSeconds (1f);
 		anim.SetBool ("SwordUlt", false);
