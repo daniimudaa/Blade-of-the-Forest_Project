@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour 
+public class StaminaCrystal : MonoBehaviour 
 {
 
 	void Start () 
@@ -15,15 +15,15 @@ public class Enemy : MonoBehaviour
 		
 	}
 
-	//if player's sword hits the enemy
+	//if player's sword hits the crystal
 	void OnCollisionEnter(Collision col)
 	{
 		if (col.gameObject.tag == "Sword") 
 		{
-			//play death sound
-			//play death animation
-			//play death particles
-			Destroy (gameObject, 2f);
+			//play crystal break sound
+			//play crystal break particles
+			print("Absorbed Stamina Crystal");
+			Destroy (gameObject, 1f);
 		}
 	}
 }

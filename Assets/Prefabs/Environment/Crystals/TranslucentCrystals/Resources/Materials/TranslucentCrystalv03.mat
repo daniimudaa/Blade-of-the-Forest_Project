@@ -122,6 +122,6 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorTint: {r: 1, g: 0.13333334, b: 0.13333334, a: 1}
-    - _ColorTint1: {r: 0.120533705, g: 0.5, b: 0, a: 1}
+    - _ColorTint1: {r: 0.015952991, g: 0.066176474, b: 0, a: 1}
     - _ColorTint2: {r: 0.7746451, g: 1, b: 0.25735295, a: 1}
     - _EmissionColor: {r: 0.99264705, g: 0, b: 0, a: 1}

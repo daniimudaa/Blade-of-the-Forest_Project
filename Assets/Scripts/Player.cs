@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour 
 {
@@ -18,19 +19,55 @@ public class Player : MonoBehaviour
 
 	public GameObject sword;
 
+	//health variables and values
+	public Slider healthBar;
+	public float CurrentHealth { get; set;}
+	public float MaxHealth { get; set;}
+	public bool gainhealth;
+
+	//stamina variables and values
+	public Slider StaminaBar;
+	public float CurrentStamina { get; set;}
+	public float MaxStamina { get; set;}
+	public bool gainStamina;
+	public bool takeStamina;
+
+	//magic variables and values
+	public Slider MagicBar;
+	public float CurrentMagic { get; set;}
+	public float MaxMagic { get; set;}
+	public bool collectMagic;
+	public bool takeMagic;
+	public bool swordUlt;
+
+
 	void Start () 
 	{
+		//Time.timeScale = 1;
+		MaxHealth = 100;
+		MaxStamina = 100;
+		MaxMagic = 100;
+		CurrentHealth = MaxHealth;
 		attacking = false;
 		controller = GetComponent<CharacterController>();
 		anim = GetComponent<Animator> ();
+		healthBar.value = CalculateHealth();
 	}
 	
 	void Update () 
 	{
+		Debug.Log (CurrentMagic);
+
+		collectMagic = true;
+		gainStamina = true;
+
 		if (Input.GetMouseButtonDown (0)) 
 		{
-			attacking = true;
-			StartCoroutine (Attacking ());
+			if (CurrentStamina >= 1) 
+			{
+				attacking = true;
+				StartCoroutine (Attacking ());
+			}
 		} 
 
 		if (!attacking)
@@ -77,23 +114,155 @@ public class Player : MonoBehaviour
 
 		anim.SetFloat ("walk", (Mathf.Abs (Input.GetAxis ("Vertical"))));
 		anim.SetFloat ("walksideways", (Mathf.Abs (Input.GetAxis ("Horizontal"))));
+
+		if (CurrentHealth <= 0) 
+		{
+			Die ();
+		}
+
+		if (CurrentHealth >= 99) { gainhealth = false;}
+		if (CurrentHealth <= 99) { gainhealth = true;}
+
+		if (CurrentStamina >= 99) { gainStamina = false;}
+		if (CurrentStamina <= 99 && CurrentStamina >= 1) {gainStamina = true;}
+		if (CurrentStamina <= 1) {takeStamina = false;}
+		if (CurrentStamina >= 19) {takeStamina = true;}
+
+		if (CurrentMagic >= 99) { collectMagic = false;}
+		if (CurrentMagic <= 99 && CurrentMagic >= 1) { collectMagic = true;}
+		if (CurrentMagic >= 49) { swordUlt = true;} 
+		if (CurrentMagic <= 49) { swordUlt = false;}
+
+		if (Input.GetMouseButtonDown (1)) 
+		{
+			if (CurrentMagic >= 49) 
+			{
+				attacking = true;
+				takeMagic = true;
+				TakeMagic (50);
+				print ("MAGIC PRESSED");
+			}
+			//if (swordUlt) 
+			//{
+
+				//sword ult animation
+				//sword ult sound
+				//sword ult particles
+			//}
+		}
+
+
+		//here for testing what would be enemy and self variable uses
+		if (Input.GetKeyDown (KeyCode.X)) 
+		{
+			DamageHealth (10);
+		}
+
+		//if collect crystals then they would add
+		if (Input.GetKeyDown (KeyCode.C)) 
+		{
+			AddHealth (10);
+		}
+		if (Input.GetKeyDown (KeyCode.B)) 
+		{
+			AddStamina (20);
+		}
+		if (Input.GetKeyDown (KeyCode.M)) 
+		{
+			AddMagic (25);
+		}
+
 	}
 
 	IEnumerator Attacking()
 	{
 		anim.SetBool ("Attack", true);
 		sword.GetComponent<Collider>().enabled = true;
-		print ("Sword col on");
 		yield return new WaitForSeconds (1f);
 
 		attacking = false;
+		TakeStamina (20);
 		yield return null;
 	}
 
 	void NotAttacking()
 	{
 		sword.GetComponent<Collider>().enabled = false; 
-		print ("Sword col off");
+	}
 
+	void Die()
+	{
+		CurrentHealth = 0;
+		anim.SetBool ("death", true);
+		//Time.timeScale = 0;
+		//playdeath animation
+		//play death sound
+		//menu.setactive to restart level
+		print ("You Died");
+	}
+
+	void DamageHealth (float damagevalue)
+	{
+		CurrentHealth -= damagevalue;
+		healthBar.value = CalculateHealth();
+	}
+
+	void AddHealth (float healthvalue)
+	{
+		if (gainhealth)
+		{
+			CurrentHealth += healthvalue;
+			healthBar.value = CalculateHealth ();
+		}
+	}
+
+	void AddStamina(float stamValue)
+	{
+		if (gainStamina) 
+		{
+			CurrentStamina += stamValue;
+			StaminaBar.value = CalculateStamina();
+		}
+	}
+
+	void TakeStamina(float staminValue)
+	{
+		if (takeStamina) 
+		{
+			CurrentStamina -= staminValue;
+			StaminaBar.value = CalculateStamina();
+		}
+	}
+
+	void AddMagic(float magValue)
+	{
+		//if you are able to collect magic then add values
+		if (collectMagic) 
+		{
+			CurrentMagic += magValue;
+			MagicBar.value = CalculateMagic();
+		}
+	}
+
+	void TakeMagic(float magicValue)
+	{
+		if (takeMagic) 
+		{
+			CurrentMagic -= magicValue;
+			MagicBar.value = CalculateMagic();
+		}
+	}
+
+	float CalculateHealth()
+	{
+		return CurrentHealth / MaxHealth;
+	}
+	float CalculateStamina()
+	{
+		return CurrentStamina / MaxStamina;
+	}
+	float CalculateMagic()
+	{
+		return CurrentMagic / MaxMagic;
 	}
 }
