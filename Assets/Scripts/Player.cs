@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
 
 	public GameObject sword;
 
+	public bool collecting;
+	public GameObject handTrig;
+
 	//health variables and values
 	public Slider healthBar;
 	public float CurrentHealth { get; set;}
@@ -61,12 +64,20 @@ public class Player : MonoBehaviour
 		collectMagic = true;
 		gainStamina = true;
 
-		if (Input.GetMouseButtonDown (0)) 
+		if (Input.GetMouseButtonDown (0) && !collecting) 
 		{
 			if (CurrentStamina >= 1) 
 			{
 				attacking = true;
 				StartCoroutine (Attacking ());
+			}
+		} 
+
+		if (Input.GetMouseButtonDown (0) && collecting) 
+		{
+			if (CurrentStamina >= 0 && CurrentStamina < 99) 
+			{
+				StartCoroutine (CollectingGems ());
 			}
 		} 
 
@@ -149,6 +160,17 @@ public class Player : MonoBehaviour
 
 	}
 
+	IEnumerator CollectingGems ()
+	{
+		anim.SetBool ("Collect", true);
+		handTrig.GetComponent<Collider> ().enabled = true;
+		yield return new WaitForSeconds (1f);
+
+		anim.SetBool ("Collect", false);
+		handTrig.GetComponent<Collider> ().enabled = false;
+		yield return null;
+	}
+
 	IEnumerator Attacking()
 	{
 		anim.SetBool ("Attack", true);
@@ -165,7 +187,7 @@ public class Player : MonoBehaviour
 		sword.GetComponent<Collider>().enabled = false; 
 	}
 
-	void Die()
+	public void Die()
 	{
 		CurrentHealth = 0;
 		anim.SetBool ("death", true);
@@ -245,7 +267,7 @@ public class Player : MonoBehaviour
 //	if collect crystals then add
 	public void AddingHealth() 
 	{
-		AddHealth (10);
+		AddHealth (20);
 	}
 	public void AddingStamina() 
 	{
@@ -254,6 +276,11 @@ public class Player : MonoBehaviour
 	public void AddingMagic()
 	{
 		AddMagic (25);
+	}
+
+	public void HurtPlayer()
+	{
+		DamageHealth (10);
 	}
 
 

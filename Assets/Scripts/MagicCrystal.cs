@@ -14,13 +14,28 @@ public class MagicCrystal : MonoBehaviour
 	//if player's sword hits the crystal
 	void OnCollisionEnter(Collision col)
 	{
-		if (col.gameObject.tag == "Sword") 
+		if (col.gameObject.tag == "Collect") 
 		{
 			player.GetComponent<Player> ().AddingMagic ();
-
+			player.GetComponent<Player> ().collecting = false;
 			//play crystal break sound
 			//play crystal break particles
 			Destroy (gameObject, 1f);
+		}
+	}
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.gameObject.tag == "Player") 
+		{
+			player.GetComponent<Player> ().collecting = true;
+		}
+	}
+
+	void OnTriggerExit(Collider other)
+	{
+		if (other.gameObject.tag == "Player") 
+		{
+			player.GetComponent<Player> ().collecting = false;
 		}
 	}
 }

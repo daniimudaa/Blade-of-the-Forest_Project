@@ -12,6 +12,7 @@ TagManager:
   - Enemy 1
   - Enemy 2
   - Enemy 3
+  - Collect
   layers:
   - Default
   - TransparentFX
