@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
 	Animator enemyAnim;
 	public GameObject player;
 	public Transform playerTransform;
-	public GameObject horn;
+	//public GameObject horn;
 	public bool attackPlayer;
 	public float MoveSpeed;
 
@@ -23,12 +23,15 @@ public class Enemy : MonoBehaviour
 	{
 		if (col.gameObject.tag == "Sword") 
 		{
-			//play death sound
-			enemyAnim.SetBool("death", true);
-			playerTransform = null;
-			//play death particles
-			MoveSpeed = 0;
-			Destroy (gameObject, 3f);
+			EnemyDie ();
+		}
+	}
+
+	void OnTriggerEnter(Collider col_01)
+	{
+		if (col_01.gameObject.tag == "Ult") 
+		{
+			EnemyDie ();
 		}
 	}
 
@@ -52,6 +55,16 @@ public class Enemy : MonoBehaviour
 	{
 		attackPlayer = false;
 		enemyAnim.SetBool ("pursuit", false);
+	}
+
+	void EnemyDie()
+	{
+		//play death sound
+		enemyAnim.SetBool("death", true);
+		playerTransform = null;
+		//play death particles
+		MoveSpeed = 0;
+		Destroy (gameObject, 3f);
 	}
 
 	IEnumerator MovetoPlayer()

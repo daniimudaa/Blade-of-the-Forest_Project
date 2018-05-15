@@ -13,6 +13,10 @@ TagManager:
   - Enemy 2
   - Enemy 3
   - Collect
+  - MenuSword_01
+  - MenuSword_02
+  - MenuSword_03
+  - Ult
   layers:
   - Default
   - TransparentFX

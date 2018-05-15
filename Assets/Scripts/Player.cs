@@ -42,6 +42,8 @@ public class Player : MonoBehaviour
 	public bool collectMagic;
 	public bool takeMagic;
 	public bool swordUlt;
+	public GameObject UltTrig;
+	public GameObject ultParticles;
 
 
 	void Start () 
@@ -151,8 +153,8 @@ public class Player : MonoBehaviour
 				StartCoroutine (SwordAnim ());
 			} 
 		}
-
-		//here for testing what would be enemy and self variable uses
+			
+		//here for testing if the sliders work with health
 		if (Input.GetKeyDown (KeyCode.X)) 
 		{
 			DamageHealth (10);
@@ -256,11 +258,16 @@ public class Player : MonoBehaviour
 		takeMagic = true;
 		TakeMagic (50);
 		//sword ult sound
-		//sword ult particles
 		anim.SetBool ("SwordUlt", true); 
 		yield return new WaitForSeconds (1f);
 		anim.SetBool ("SwordUlt", false);
 		swordUlt = false;
+		yield return new WaitForSeconds (1f);
+		UltTrig.GetComponent<BoxCollider> ().enabled = true;
+		ultParticles.SetActive (true);
+		yield return new WaitForSeconds (1f);
+		ultParticles.SetActive (false);
+		UltTrig.GetComponent<BoxCollider> ().enabled = false;
 		yield return null;
 	}
 
